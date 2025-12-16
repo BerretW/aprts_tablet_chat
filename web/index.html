@@ -1,0 +1,70 @@
+<link rel="stylesheet" href="nui://aprts_tablet_chat/web/style.css">
+
+<div class="chat-wrapper">
+    <!-- Skrytá data -->
+    <input type="hidden" id="my-serial" value="{{SERIAL}}">
+    <input type="hidden" id="my-name" value="{{USERNAME}}">
+    <input type="hidden" id="is-registered" value="{{IS_REGISTERED}}">
+
+    <!-- 1. NASTAVENÍ PROFILU (Původně Login) -->
+    <!-- Změna ID na setup-screen, aby nekolidovalo s PINem -->
+    <div id="setup-screen" class="setup-screen" style="display: none;">
+        <div class="setup-box">
+            <div class="setup-icon"><i class="fas fa-user-edit"></i></div>
+            <h2>Nastavení Profilu</h2>
+            <p>Pro vstup do chatu si zvolte přezdívku.</p>
+            
+            <input type="text" id="reg-username" placeholder="Vaše přezdívka..." maxlength="20" autocomplete="off">
+            <button onclick="ChatApp.register()">Uložit a Vstoupit</button>
+        </div>
+    </div>
+
+    <!-- 2. HLAVNÍ APLIKACE -->
+    <div id="chat-app-root" class="chat-app" style="display: none;">
+        <!-- Sidebar -->
+         <div class="sidebar expanded" id="room-list">
+        <div class="sidebar-header">MÍSTNOSTI</div>
+        
+        <!-- NOVÉ: Search Bar -->
+        <div class="room-search-wrapper">
+            <input type="text" id="room-search" placeholder="Hledat..." onkeyup="ChatApp.searchRooms()">
+        </div>
+
+        <div id="rooms-container" style="flex:1; overflow-y:auto; width:100%;">
+            <!-- Zde se načtou roomky -->
+        </div>
+        
+        <button class="create-room-btn" onclick="ChatApp.createRoomPrompt()">+ Nová</button>
+        
+        <div class="user-profile">
+            <div class="user-avatar"><i class="fas fa-user"></i></div>
+            <div class="user-info">
+                <div id="display-username">...</div>
+                <div id="display-serial">ID: ...</div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Chat Area -->
+        <div class="chat-area">
+            <div class="chat-header">
+                <span style="color:#72767d; margin-right: 5px;">#</span>
+                <span id="current-room-name">Vyberte místnost</span>
+            </div>
+
+            <div class="messages-list" id="msg-container">
+                <div class="welcome-msg">
+                    <i class="fas fa-arrow-left"></i> Vyberte kanál vlevo pro zahájení konverzace.
+                </div>
+            </div>
+
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <input type="text" id="chat-input" placeholder="Napište zprávu..." autocomplete="off">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="nui://aprts_tablet_chat/web/script.js"></script>
